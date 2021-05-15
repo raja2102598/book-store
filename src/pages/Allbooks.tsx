@@ -1,11 +1,13 @@
 import React, { Component } from "react"
+import axios from "axios"
+import { Link } from "react-router-dom"
 
 export class Allbooks extends Component {
   state = {
     books: [],
     loading: true,
   }
-  componentDidMount() {
+  fetchBooks() {
     fetch("https://localhost:5001/api/books")
       .then((res) => res.json())
       .then((data) => {
@@ -17,6 +19,11 @@ export class Allbooks extends Component {
         console.log(this.state)
       })
   }
+  componentDidMount() {
+    //GET Books
+    this.fetchBooks()
+  }
+
   render() {
     return (
       <>
@@ -34,7 +41,7 @@ export class Allbooks extends Component {
               </blockquote>
             </figure>
             <div className="container-md p-2">
-              <table className="table table-striped">
+              <table className="table table-striped text-center">
                 <thead>
                   <tr>
                     <th scope="col">Id</th>
@@ -42,6 +49,8 @@ export class Allbooks extends Component {
                     <th scope="col">Author</th>
                     <th scope="col">Category</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -52,6 +61,34 @@ export class Allbooks extends Component {
                       <td>{book["author"]}</td>
                       <td>{book["category"]}</td>
                       <td>{book["price"]}</td>
+                      <td>
+                        <Link to={`/book/${book["id"]}`}>
+                          <button className="btn btn-outline-primary">
+                            Edit Book
+                          </button>
+                        </Link>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-outline-danger"
+                          onClick={() => {
+                            //DELETE Book
+                            axios
+                              .delete(
+                                `https://localhost:5001/api/books/${book["id"]}`
+                              )
+                              .then((response) => {
+                                this.fetchBooks()
+                                console.log(response)
+                              })
+                              .catch((error) => {
+                                console.log(error)
+                              })
+                          }}
+                        >
+                          Delete Book
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

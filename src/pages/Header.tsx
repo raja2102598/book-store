@@ -1,14 +1,15 @@
 import React, { Component } from "react"
+import { Link } from "react-router-dom"
 
-export class Header extends Component {
+export class Header extends Component<any, any> {
   render() {
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
-            <a className="navbar-brand" href="/#">
-              Book Store
-            </a>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <span className="navbar-brand">Book Store</span>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -23,23 +24,19 @@ export class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/#">
-                    All Books
-                  </a>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    <span
+                      className="nav-link"
+                      aria-current="page"
+                      id="all"
+                    >
+                      All Books
+                    </span>
+                  </Link>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/#">
+                <li className="nav-item ">
+                  <a className="nav-link" href="/#" id="add">
                     Add Book
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/#">
-                    Update Book
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/#">
-                    Delete Book
                   </a>
                 </li>
               </ul>
