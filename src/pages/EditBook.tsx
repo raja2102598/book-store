@@ -74,7 +74,7 @@ class EditBook extends Component<any, Mystate> {
             className="needs-validation"
             noValidate
             onSubmit={(e: React.SyntheticEvent) => {
-              debugger
+              // debugger
               e.preventDefault()
               this.setState({
                 isLoading: true,

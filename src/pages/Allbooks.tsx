@@ -1,33 +1,27 @@
-import React, { Component } from "react"
+import React, { Component, useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
 
-export class Allbooks extends Component {
-  state = {
-    books: [],
-    loading: true,
-  }
-  fetchBooks() {
+
+function Allbooks(){
+
+  const [books,setBooks]=useState([])
+  const [loading,isLoading]=useState(true)
+  const fetchBooks=()=> {
     fetch("https://localhost:5001/api/books")
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
-        this.setState({
-          books: data,
-          loading: false,
-        })
-        console.log(this.state)
+        setBooks(data)
+        isLoading(false)
       })
   }
-  componentDidMount() {
-    //GET Books
-    this.fetchBooks()
-  }
+  useEffect(()=>{
+    fetchBooks()
+  },[books])
 
-  render() {
     return (
       <>
-        {this.state.loading ? (
+        {loading ? (
           <div className="d-flex justify-content-center">
             <div className="spinner-border" role="status">
               <span className="visually-hidden">Loading...</span>
@@ -54,7 +48,7 @@ export class Allbooks extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.books.map((book) => (
+                  {books.map((book) => (
                     <tr key={book["id"]}>
                       <th scope="row">{book["id"]}</th>
                       <td>{book["bookName"]}</td>
@@ -78,7 +72,7 @@ export class Allbooks extends Component {
                                 `https://localhost:5001/api/books/${book["id"]}`
                               )
                               .then((response) => {
-                                this.fetchBooks()
+                                fetchBooks()
                                 console.log(response)
                               })
                               .catch((error) => {
@@ -99,6 +93,5 @@ export class Allbooks extends Component {
       </>
     )
   }
-}
 
 export default Allbooks

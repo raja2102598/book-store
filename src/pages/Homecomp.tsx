@@ -1,16 +1,13 @@
-import React, { Component } from "react"
+import React from "react"
 import Allbooks from "./Allbooks"
 import Header from "./Header"
 
-export class Homecomp extends Component {
-  render() {
-    return (
-      <>
-        <Header></Header>
-        <Allbooks></Allbooks>
-      </>
-    )
-  }
+function Homecomp() {
+  return (
+    <>
+      <Header></Header>
+      <Allbooks></Allbooks>
+    </>
+  )
 }
-
 export default Homecomp
